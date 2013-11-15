@@ -14,11 +14,13 @@ var Hex = function (options) {
       },
       _board,_this;
 
-  if(_this === undefined){
+  if (_this === undefined) {
     cl.log('new hex instance');
-    if(options !== undefined){
+
+    if (options !== undefined) {
       jQuery.extend(settings, options);
     }
+
     _init(settings);
   }
 
@@ -26,6 +28,8 @@ var Hex = function (options) {
   function _init(settings) {
     cl.log('init new hex');
     _this = $(settings.hexHtml);
+
+    _this.data("id", settings.y);
 
     return _this;
   }

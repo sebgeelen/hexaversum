@@ -1,7 +1,7 @@
 (function(context, namespace) {
 
   var _console        = context[namespace],       // context object (defaul on window.Hexboard)
-      _debugMode      = true
+      _debugMode      = true;                     // set to false to avoid message
 
   if (_console) { // singleton
     return;
@@ -13,7 +13,7 @@
       type = "MSG";
     }
 
-    if (_debugMode) {
+    if (_debugMode || type == "ERROR") {
       if (typeof toLog === "string") {
         console.debug(type.toUpperCase() + " : " + toLog);
       } else {

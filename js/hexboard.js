@@ -4,7 +4,7 @@
       _hexsList         = [],                       // hex lists
       settings          = {
         "container"         : null,               // the board container html obj (expect jQuery instance) -- MANDATORY
-        "startingLayer"     : 1                   // number layer around center hex
+        "startingLayer"     : 3                   // number layer around center hex
       },
       rowHtml           = "#objects-lib .row",
       hexHtml           = "#objects-lib .hex-c",
@@ -43,7 +43,7 @@
     cl.log('building starting board');
 
     // Todo : add x id in row data
-    var newRow    = $(rowHtml),
+    var newRow    = _createRow(0),
         startHex  = _createHex({"startingHex" : true});
 
     newRow.append(startHex.getJq());
@@ -70,25 +70,30 @@
   function addHexsAroundBoard () {
     _oignionLayerNbr ++;
 
-    var newRowA  = $(rowHtml),
-        newRowB  = $(rowHtml),
-        rowIdA   = ( _oignionLayerNbr - 1 ),
-        rowIdB   = rowIdA * -1;
+    var allRows       = boardContainer.find(".row"),
+        rowIdA        = ( _oignionLayerNbr - 1 ),
+        rowIdB        = rowIdA * -1,
+        newRowA       = _createRow(rowIdA),
+        newRowB       = _createRow(rowIdB);
     // Todo : add x id in row data
 
-    boardContainer.find(".row").each(function(){
-      var row = $(this);
-      row.prepend(_createHex().getJq());
-      row.append(_createHex().getJq());
+    allRows.each(function(){
+      var row         = $(this),
+          rowId       = row.data("id"),
+          firstHexId  = parseFloat(row.find(".hex-c:first-child").data("id")) -1,
+          lastHexId   = parseFloat(row.find('.hex-c:last-child').data("id")) +1;
+
+      row.prepend(_createHex({"x":rowId, "y": firstHexId }).getJq());
+      row.append(_createHex({"x":rowId, "y": lastHexId}).getJq());
     });
 
     //row before first line
-    addXHexInRow(_oignionLayerNbr, newRow, rowIdB);
-    boardContainer.prepend(newRow);
+    addXHexInRow(_oignionLayerNbr, newRowB, rowIdB);
+    boardContainer.prepend(newRowB);
 
     //row after last line
-    addXHexInRow(_oignionLayerNbr, newRow, rowIdA);
-    boardContainer.append(newRow);
+    addXHexInRow(_oignionLayerNbr, newRowA, rowIdA);
+    boardContainer.append(newRowA);
   }
 
   // add "nbr" number of hex in this "row"
@@ -110,16 +115,31 @@
     if(opt !== undefined){
       jQuery.extend(defOpt, opt);
     }
-
-    newHex = new Hex(defOpt);
-
     if(defOpt.startingHex){
-      _addHexInMatrix(newHex, 0, 0);
-    } else if(defOpt.x !== undefined && defOpt.y !== undefined) {
-      _addHexInMatrix(newHex, defOpt.x, defOpt.y);
+      defOpt.x = defOpt.y = 0;
     }
 
+
+    if(defOpt.x === undefined || defOpt.y === undefined) {
+      cl.log("Mandatory [x] or [y] param missing", "ERROR");
+      return;
+    }
+
+    newHex = new Hex(defOpt);
+    _addHexInMatrix(newHex, defOpt.x, defOpt.y);
+
     return newHex;
+  }
+
+  function _createRow(id) {
+    if(id === undefined){
+      cl.log("new row id not provided", "ERROR");
+      return;
+    }
+
+    newRow = $(rowHtml);
+    newRow.data("id", id);
+    return newRow;
   }
 
   function _addHexInMatrix(hex, x, y) {
