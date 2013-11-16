@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="./js/jquery-2.0.3.min.js"></script>
 
   <script type="text/javascript" src="./js/customLog.js"></script>
+  <script type="text/javascript" src="./js/helpers.js"></script>
 
   <script type="text/javascript" src="./js/hex.js"></script>
   <script type="text/javascript" src="./js/hexboard.js"></script>
@@ -24,8 +25,7 @@
     	</div>
     </div>
     <!-- end cells container -->
-  <button id="add-cells">Add cells</button> <br />
-  <button id="hide-all">Hide All</button>
+  <button id="add-cells" disabled="disabled">Restart Game (not working)</button>
   <div id="colors">
     <p class="hl1"><span><i class="fa fa-leaf"></i></span><span class="nbr">0</span></p>
     <p class="hl2"><span><i class="fa fa-flash"></i></span><span class="nbr">0</span></p>
@@ -57,19 +57,19 @@
         <div class="in1">
           <div class="in2">
             <p>
-              <a class="hl1"></a>
-              <a class="hl2"></a>
-              <a class="hl3"></a>
+              <a class="hl hl1"></a>
+              <a class="hl hl2"></a>
+              <a class="hl hl3"></a>
             </p>
             <p>
-              <a class="hl4"></a>
-              <a class="hl5"></a>
-              <a class="hl6"></a>
+              <a class="hl hl4"></a>
+              <a class="hl hl5"></a>
+              <a class="hl hl6"></a>
             </p>
           </div>
         </div>
       </div>
-      
+
     </div>
     <!-- base emty row obejct ( contain hexs ) -->
     <div class="row"></div>

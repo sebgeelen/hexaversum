@@ -1,7 +1,7 @@
 (function(context, namespace) {
 
   var _console        = context[namespace],       // context object (defaul on window.Hexboard)
-      _debugMode      = true;                     // set to false to avoid message
+      _debugMode      = false;                     // set to false to avoid message
 
   if (_console) { // singleton
     return;
@@ -11,13 +11,15 @@
   function log(toLog, type) {
     if (typeof type === "undefined") {
       type = "MSG";
+    } else {
+      type = type.toUpperCase();
     }
 
     if (_debugMode || type == "ERROR") {
       if (typeof toLog === "string") {
-        console.debug(type.toUpperCase() + " : " + toLog);
+        console.debug(type + " : " + toLog);
       } else {
-        console.debug(type.toUpperCase() + " :  ▼ -[" + typeof toLog + "]");
+        console.debug(type + " :  ▼ -[" + typeof toLog + "]");
         console.debug(toLog);
       }
     }

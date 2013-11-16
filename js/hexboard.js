@@ -4,7 +4,15 @@
       _hexsList         = [],                       // hex lists
       settings          = {
         "container"         : null,               // the board container html obj (expect jQuery instance) -- MANDATORY
-        "startingLayer"     : 3                   // number layer around center hex
+        "startingLayer"     : 1                   // number layer around center hex
+      },
+      linksOposite      = {
+        "1": "4",
+        "2": "5",
+        "3": "6",
+        "4": "1",
+        "5": "2",
+        "6": "3"
       },
       rowHtml           = "#objects-lib .row",
       hexHtml           = "#objects-lib .hex-c",
@@ -98,10 +106,9 @@
 
   // add "nbr" number of hex in this "row"
   function addXHexInRow (nbr, row, rowId){
-    for (var i = 0; i < nbr; i++) {
-      var Ybase = (nbr-1)/2;
-
-      row.prepend(_createHex({"x":rowId, "y": Ybase - i}).getJq());
+    var Ybase = (nbr-1)/2;
+    for (var i = nbr - 1; i >=0 ; i--) {
+      row.append(_createHex({"x":rowId, "y": Ybase - i}).getJq());
     }
   }
 
@@ -121,19 +128,32 @@
 
 
     if(defOpt.x === undefined || defOpt.y === undefined) {
-      cl.log("Mandatory [x] or [y] param missing", "ERROR");
+      cl.log("Mandatory [x] or [y] param missing", "error");
       return;
+    }
+    var rowId        = defOpt.x,
+        HexId        = defOpt.y,
+        aroundMeHexs = _getHexAround(rowId, HexId);
+
+    defOpt.mandatoryLinks = {};
+    for(var i in aroundMeHexs){
+      var checkAt = linksOposite[i];
+          linkVal = aroundMeHexs[i].getLinkAt(checkAt);
+
+      if(linkVal !== undefined){
+        defOpt.mandatoryLinks[i] = linkVal;
+      }
     }
 
     newHex = new Hex(defOpt);
-    _addHexInMatrix(newHex, defOpt.x, defOpt.y);
+    _addHexInMatrix(newHex, rowId, HexId);
 
     return newHex;
   }
 
   function _createRow(id) {
     if(id === undefined){
-      cl.log("new row id not provided", "ERROR");
+      cl.log("new row id not provided", "error");
       return;
     }
 
@@ -156,6 +176,33 @@
   // return hex list as array
   function getHexMatrix() {
     return _hexMatrix;
+  }
+
+  // return hex list as array
+  function _getHexAround(rowId, hexId) {
+    var res = {};
+
+    res["1"] = getSingleHexAt( rowId - 1, hexId - 0.5);
+    res["2"] = getSingleHexAt( rowId, hexId - 1);
+    res["3"] = getSingleHexAt( rowId + 1, hexId - 0.5) ;
+    res["4"] = getSingleHexAt( rowId + 1, hexId + 0.5);
+    res["5"] = getSingleHexAt( rowId, hexId + 1);
+    res["6"] = getSingleHexAt( rowId - 1, hexId + 0.5);
+
+    for(var i in res){
+      if(res[i] === undefined){
+        delete(res[i]);
+      }
+    }
+    return res;
+  }
+  function getSingleHexAt(rowId, hexId){
+
+    if(_hexMatrix[rowId] === undefined || _hexMatrix[rowId][hexId] === undefined){
+      return undefined;
+    }
+
+    return _hexMatrix[rowId][hexId].hex;
   }
 
   function getAllHexs() {
