@@ -18,14 +18,14 @@
       hexHtml           = "#objects-lib .hex-c",
       _hexMatrix        = {},
       _oignionLayerNbr  = 1,
-      boardContainer;
+      boardContainer,_menu;
 
   if (_board) { // singleton
     return;
   }
 
   // init the board
-  function init(options) {
+  function init (options) {
     cl.log('init');
     if(options !== undefined){
       // merge options object into settings object
@@ -33,21 +33,35 @@
     }
 
     _initVars();
+    _fillInMenu();
     _buildStartingBoard();
     _showAllHexs();
   }
 
   // used at startup, full filed the vars which need $ ready to have corect values
-  function _initVars() {
+  function _initVars () {
     cl.log('init vars');
 
     boardContainer   = settings.container;
     rowHtml          = $(rowHtml)[0].outerHTML;
     hexHtml          = $(hexHtml)[0].outerHTML;
+    _menu            = $("menu#mainMenu");
+  }
+
+  function _fillInMenu () {
+    startingMenuData = settings.startingMenuData;
+
+    for (var i in startingMenuData) {
+      target = _menu.find("." + i);
+
+      if(target.length > 0) {
+        target.html(startingMenuData[i]);
+      }
+    }
   }
 
   // build the starting hex board ( 1 hex in the center )
-  function _buildStartingBoard() {
+  function _buildStartingBoard () {
     cl.log('building starting board');
 
     // Todo : add x id in row data
@@ -147,6 +161,7 @@
 
     newHex = new Hex(defOpt);
     _addHexInMatrix(newHex, rowId, HexId);
+    _registerEventsOn(newHex);
 
     return newHex;
   }
@@ -215,10 +230,34 @@
     return all;
   }
 
+  function _registerEventsOn(hex) {
+    hex.getJq().on("hexEvent", eventsInbox);
+  }
+
+  function eventsInbox(e) {
+    console.log(e);
+    //improve Handling of custome event sub type, data, etc
+
+    /*
+    // apply color, remove choise
+    bgColorBox.css("background-color", color).find(">p").remove();
+
+    // add icon
+    hex.prepend($("#colors>p."+colorKey+">span:first-child").html());
+
+    //colors count
+    if (numberColored[colorKey] === undefined) {
+      numberColored[colorKey] = 0;
+    };
+    numberColored[colorKey] ++;
+    updateColorsNumber();
+    */
+  }
+
   // define the public methods and vars
   var board               = {};
       board.init          = init;
-      board.getHexMatrix  = getHexMatrix;
+      board.eventsInbox   = eventsInbox;
 
   _board                  = board;
   context[namespace]      = _board;

@@ -16,6 +16,10 @@
 
 </head>
 <body>
+  <menu id="mainMenu">
+    <div class="year-c">Year <span class="year">-</span></div>
+    <a id="next-turn" class="board-action" href="#nextTurn">Next Year</a>
+  </menu>
   <div id="main-container">
     <!-- starts cells container -->
     <div id="cells-positioner">
@@ -24,18 +28,18 @@
         </div>
     	</div>
     </div>
-    <!-- end cells container -->
-  <button id="add-cells" disabled="disabled">Restart Game (not working)</button>
-  <div id="colors">
-    <p class="hl1"><span><i class="fa fa-leaf"></i></span><span class="nbr">0</span></p>
-    <p class="hl2"><span><i class="fa fa-flash"></i></span><span class="nbr">0</span></p>
-    <p class="hl3"><span><i class="fa fa-road"></i></span><span class="nbr">0</span></p>
-    <p class="hl4"><span><i class="fa fa-truck"></i></span><span class="nbr">0</span></p>
-    <p class="hl5"><span><i class="fa fa-suitcase"></i></span><span class="nbr">0</span></p>
-    <p class="hl6"><span><i class="fa fa-cog"></i></span><span class="nbr">0</span></p>
   </div>
+    <!-- end cells container -->
 
-
+  <button id="add-cells" disabled="disabled">Restart Game</button>
+  <div id="colors">
+    <p class="hl1"><span><i class="fa fa-crosshairs"></i></span><span class="nbr">0</span></p>
+    <p class="hl2"><span><i class="fa fa-shield"></i></span><span class="nbr">0</span></p>
+    <p class="hl3"><span><i class="fa fa-usd"></i></span><span class="nbr">0</span></p>
+    <p class="hl4"><span><i class="fa fa-flash"></i></span><span class="nbr">0</span></p>
+    <p class="hl5"><span><i class="fa fa-suitcase"></i></span><span class="nbr">0</span></p>
+    <p class="hl6"><span><i class="fa fa-cutlery"></i></span><span class="nbr">0</span></p>
+  </div>
 
   <div id="objects-lib" class="hidden">
     <!-- base hex obj -->
@@ -57,13 +61,13 @@
         <div class="in1">
           <div class="in2">
             <p>
-              <a class="hl hl1"></a>
-              <a class="hl hl2"></a>
               <a class="hl hl3"></a>
-            </p>
-            <p>
               <a class="hl hl4"></a>
               <a class="hl hl5"></a>
+            </p>
+            <p>
+              <a class="hl hl2"></a>
+              <a class="hl hl1"></a>
               <a class="hl hl6"></a>
             </p>
           </div>
