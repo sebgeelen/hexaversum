@@ -33,7 +33,7 @@
     }
 
     _initVars();
-    _fillInMenu();
+    _initMenu();
     _buildStartingBoard();
     _showAllHexs();
   }
@@ -45,10 +45,11 @@
     boardContainer   = settings.container;
     rowHtml          = $(rowHtml)[0].outerHTML;
     hexHtml          = $(hexHtml)[0].outerHTML;
-    _menu            = $("menu#mainMenu");
+    _menu            = $("menu#main-menu");
   }
 
-  function _fillInMenu () {
+  // fill in menu with starting data
+  function _initMenu () {
     startingMenuData = settings.startingMenuData;
 
     for (var i in startingMenuData) {
@@ -236,28 +237,38 @@
 
   function eventsInbox(e) {
     console.log(e);
-    //improve Handling of custome event sub type, data, etc
-
-    /*
-    // apply color, remove choise
-    bgColorBox.css("background-color", color).find(">p").remove();
-
-    // add icon
-    hex.prepend($("#colors>p."+colorKey+">span:first-child").html());
-
-    //colors count
-    if (numberColored[colorKey] === undefined) {
-      numberColored[colorKey] = 0;
-    };
-    numberColored[colorKey] ++;
-    updateColorsNumber();
-    */
+    //improve Handling of custom event sub-type, data, etc
+    switch(e.type){
+      case "hexEvent" :
+      _fillInMenuWith(e.data); // expect hex obj
+      break;
+    }
   }
 
+  // clear the menu and refill it with hex data
+  function _fillInMenuWithHex(hex) {
+
+  }
+  // rest the state of the menu (only concerned hex data)
+  function _clearMenuHexData() {
+
+  }
+
+  /* getters / setters*/
+  function getOignionLayerNbr(offset) {
+
+    if(offset === undefined) {
+      offset = 0;
+    }
+
+    return _oignionLayerNbr + offset;
+  }
+
+
   // define the public methods and vars
-  var board               = {};
-      board.init          = init;
-      board.eventsInbox   = eventsInbox;
+  var board                     = {};
+      board.init                = init;
+      board.getOignionLayerNbr  = getOignionLayerNbr;
 
   _board                  = board;
   context[namespace]      = _board;

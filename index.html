@@ -16,9 +16,27 @@
 
 </head>
 <body>
-  <menu id="mainMenu">
-    <div class="year-c">Year <span class="year">-</span></div>
-    <a id="next-turn" class="board-action" href="#nextTurn">Next Year</a>
+  <menu id="main-menu">
+    <div class="info">
+      <div class="year-c">Year <span class="year">-</span></div>
+      <a id="next-turn" class="board-action" href="#nextTurn">Next Year</a>
+    </div>
+    <div class="details">
+      <div class="resources">
+        <p class="res1"><span><i class="fa fa-crosshairs"></i></span><span class="nbr">-</span></p>
+        <p class="res2"><span><i class="fa fa-shield"></i></span><span class="nbr">-</span></p>
+        <p class="res3"><span><i class="fa fa-usd"></i></span><span class="nbr">-</span></p>
+        <p class="res4"><span><i class="fa fa-flash"></i></span><span class="nbr">-</span></p>
+        <p class="res5"><span><i class="fa fa-suitcase"></i></span><span class="nbr">-</span></p>
+        <p class="res6"><span><i class="fa fa-cutlery"></i></span><span class="nbr">-</span></p>
+      </div>
+      <div class="owner">
+        Planet owned by <span> -- </span>
+      </div>
+      <div class="misc" >
+
+      </div>
+    </div>
   </menu>
   <div id="main-container">
     <!-- starts cells container -->
@@ -29,17 +47,7 @@
     	</div>
     </div>
   </div>
-    <!-- end cells container -->
-
-  <button id="add-cells" disabled="disabled">Restart Game</button>
-  <div id="colors">
-    <p class="hl1"><span><i class="fa fa-crosshairs"></i></span><span class="nbr">0</span></p>
-    <p class="hl2"><span><i class="fa fa-shield"></i></span><span class="nbr">0</span></p>
-    <p class="hl3"><span><i class="fa fa-usd"></i></span><span class="nbr">0</span></p>
-    <p class="hl4"><span><i class="fa fa-flash"></i></span><span class="nbr">0</span></p>
-    <p class="hl5"><span><i class="fa fa-suitcase"></i></span><span class="nbr">0</span></p>
-    <p class="hl6"><span><i class="fa fa-cutlery"></i></span><span class="nbr">0</span></p>
-  </div>
+  <!-- end cells container -->
 
   <div id="objects-lib" class="hidden">
     <!-- base hex obj -->
@@ -60,16 +68,6 @@
       <div class="hex">
         <div class="in1">
           <div class="in2">
-            <p>
-              <a class="hl hl3"></a>
-              <a class="hl hl4"></a>
-              <a class="hl hl5"></a>
-            </p>
-            <p>
-              <a class="hl hl2"></a>
-              <a class="hl hl1"></a>
-              <a class="hl hl6"></a>
-            </p>
           </div>
         </div>
       </div>

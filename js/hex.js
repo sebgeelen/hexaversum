@@ -6,7 +6,8 @@ var Hex = function (options) {
       },
       type = "empty",
       status = "lock",
-      planetSize = 16,
+      planetSize,
+      planetOwner,
       links = {
         1: undefined,
         2: undefined,
@@ -36,9 +37,16 @@ var Hex = function (options) {
     _this.data("id", settings.y);
     _this.data("rowId", settings.x);
 
+    _this.attr("id", "hex:" + settings.y + ":" + settings.x );
+
     _chooseRamdomLinks(settings.mandatoryLinks);
     _chooseRamdomPlanetSize(settings.planetSize);
-    _chooseRamdomOwner();
+
+    forceType = false;
+    if(settings.startingHex) {
+      forceType = "owned";
+    }
+    _chooseRamdomOwner(forceType);
 
     _initEventListener();
 
@@ -52,24 +60,30 @@ var Hex = function (options) {
         diff  = max - min,
         rand  = min + Math.floor((Math.random() * ( 1+ diff ) ));
 
+    planetSize = rand;
     _this.find(".planet").addClass("planet-" + rand);
 
   }
 
   // choose a random owner between you (very rare), free, wild, and own by united empire
-  function _chooseRamdomOwner () {
-    var rand  = Math.floor((Math.random() * 300));
+  function _chooseRamdomOwner (type) {
 
-    if(rand === 0) {
-      // you own the planet
-    } else if (rand < 100) {
-      // free
-    } else if (rand < 200) {
-      // wild
-    } else if (rand < 301) {
-      // ue
+    if (type === undefined || !type) {
+      var rand  = Math.floor((Math.random() * 1000));
+
+      if(rand < 3) {
+        type = "owned";
+      } else if (rand < 200) {
+        type = "wild";
+      } else if (rand < (200 + ( 50 * _board.getOignionLayerNbr(-1) ) )) {
+        type = "ue";
+      } else {
+        type = "free";
+      }
     }
-    _this.find(".planet").addClass("planet-" + rand);
+
+    planetOwner = type;
+    _this.addClass("owner-" + type);
 
   }
 
@@ -130,9 +144,9 @@ var Hex = function (options) {
 
   // create Event Listener
   function _initEventListener() {
-    _this.find(".hex a.hl").on("click", function(e){
+    _this.find(".hex ").on("click", function(e){
       // todo improve event with data and sub name
-      _this.trigger("hexEvent", "triangleClick", _self);
+      _this.trigger("hexEvent", "hexClick", _self);
     });
   }
 

@@ -1,24 +1,29 @@
 @baseHexColor: #7b7b66;
-@baseplanetColor: #333;
-@baselinkColor: #aaa;
+@baseLinkColor: #aaa;
 
-@triangle1: #b80000;
-@triangle1Hover: #ca4242;
+@basePlanetColor: #333;
+@wildPlanetColor: #8b6c21;
+@uePlanetColor: #2a5096;
 
-@triangle2: #278e00;
-@triangle2Hover: #5fab42;
+@resource1: #b80000;
+@resource1Hover: #ca4242;
 
-@triangle6: #004e93;
-@triangle6Hover: #427caf;
+@resource2: #278e00;
+@resource2Hover: #5fab42;
 
-@triangle3: #b85b00;
-@triangle3Hover: #ca8542;
+@resource6: #004e93;
+@resource6Hover: #427caf;
 
-@triangle4: #00b6b8;
-@triangle4Hover: #42c9ca;
+@resource3: #b85b00;
+@resource3Hover: #ca8542;
 
-@triangle5: #640eb8;
-@triangle5Hover: #8c4cca;
+@resource4: #00b6b8;
+@resource4Hover: #42c9ca;
+
+@resource5: #640eb8;
+@resource5Hover: #8c4cca;
+
+@baseImgLoc : '../img/';
 
 
 body {
@@ -30,47 +35,55 @@ body {
   display: none;
 }
 /*color check*/
-#colors {
+#main-menu {
   position: fixed;
   top:0;
-  left: 100px;
-  p{
-    background-color: @triangle1Hover;
-    border-left: 4px solid @triangle1;
-    border-right: 4px solid @triangle1;
-    width: 80px;
-    height: 32px;
-    color: #fff;
-    font-size: 22px;
-    line-height: 32px;
-    margin: 0;
-    display: inline-block;
-    span{
-      display: inline-block;
-      width: 40px;
-      padding: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  .details {
+    width: 181px;
+    padding: 5px;
+    border-right:3px solid #333;
+    background-color: #fff;
+    .resources p{
+      background-color: @resource1Hover;
+      border-left: 4px solid @resource1;
+      border-right: 4px solid @resource1;
+      width: 80px;
+      height: 32px;
+      color: #fff;
+      font-size: 22px;
+      line-height: 32px;
       margin: 0;
-      text-align: center;
-    }
-    &:nth-child(2){
-      background-color: @triangle2Hover;
-      border-color: @triangle2;
-    }
-    &:nth-child(3){
-      background-color: @triangle3Hover;
-      border-color: @triangle3;
-    }
-    &:nth-child(4){
-      background-color: @triangle4Hover;
-      border-color: @triangle4;
-    }
-    &:nth-child(5){
-      background-color: @triangle5Hover;
-      border-color: @triangle5;
-    }
-    &:nth-child(6){
-      background-color: @triangle6Hover;
-      border-color: @triangle6;
+      display: inline-block;
+      span{
+        display: inline-block;
+        width: 40px;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+      }
+      &:nth-child(2){
+        background-color: @resource2Hover;
+        border-color: @resource2;
+      }
+      &:nth-child(3){
+        background-color: @resource3Hover;
+        border-color: @resource3;
+      }
+      &:nth-child(4){
+        background-color: @resource4Hover;
+        border-color: @resource4;
+      }
+      &:nth-child(5){
+        background-color: @resource5Hover;
+        border-color: @resource5;
+      }
+      &:nth-child(6){
+        background-color: @resource6Hover;
+        border-color: @resource6;
+      }
     }
   }
 }
@@ -185,70 +198,12 @@ body {
   background-color: @baseHexColor;
   position: relative;
   opacity: .2;
-
+  cursor: pointer;
   &:hover{
-    opacity: .98;
-    p{
-      display: block;
-    }
-  }
-
-  p, a{
-    padding: 0;
-    margin: 0;
-  }
-  p{
-    position: absolute;
-    display: none;
-    background: #fff;
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-    a{
-      display: block;
-      height: 50%;
-      width: 100%;
-      position: absolute;
-      background-color: @triangle1;
-      &:hover{background-color: @triangle1Hover;}
-
-      &:nth-child(2){
-        transform: rotate(-60deg);
-        top: 30.6%;
-        right:26.8%;
-        background-color: @triangle2;
-        &:hover{background-color: @triangle2Hover;}
-      }
-      &:nth-child(3){
-        transform: rotate(-120deg);
-        top: 55.2%;
-        right:-24%;
-        background-color: @triangle3;
-        &:hover{background-color: @triangle3Hover;}
-      }
-    }
-  }
-  p:last-child{
-    background: green;
-    left: 50%;
-    a{
-      background-color: @triangle4;
-      &:hover{background-color: @triangle4Hover;}
-      &:nth-child(2){
-        transform: rotate(60deg);
-        left:26.8%;
-        background-color: @triangle5;
-        &:hover{background-color: @triangle5Hover;}
-      }
-      &:nth-child(3){
-        transform: rotate(120deg);
-        left:-24%;
-        background-color: @triangle6;
-        &:hover{background-color: @triangle6Hover;}
-      }
-    }
+    opacity: .3;
   }
 }
+
 .umap{
   position: absolute;
   top:25%;
@@ -262,8 +217,9 @@ body {
     margin: 0 auto;
     border: 2px solid #fff;
     border-radius: 20px;
-    background-color: @baseplanetColor;
+    background-color: @basePlanetColor;
   }
+
   .planet-1{
     width: 8px;
     height: 8px;
@@ -320,7 +276,7 @@ body {
     width: 42px;
     height: 2px;
     margin-top:-1px;
-    background-color: @baselinkColor;
+    background-color: @baseLinkColor;
     position: absolute;
     display: none;
     z-index: -1;
@@ -359,4 +315,26 @@ body {
     left: 30%;
   }
 
+}
+
+// owner diff specific css // always at the end
+
+.owner-owned{
+  .in2{
+    background-position: center;
+    //background-repeat: no-repeat;
+    background-image: url("@{baseImgLoc}owned.svg");
+  }
+}
+
+.owner-wild{
+  .umap .planet{
+    background-color: @wildPlanetColor;
+  }
+}
+
+.owner-ue{
+  .umap .planet{
+    background-color: @uePlanetColor;
+  }
 }
