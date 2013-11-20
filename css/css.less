@@ -29,6 +29,9 @@
 body {
   background: #ddd;
   font-family: helvetica, sans-serif;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .hidden{
@@ -41,10 +44,26 @@ body {
   left: 0;
   margin: 0;
   padding: 0;
-  .details {
-    width: 181px;
+  .top {
+    width: 100%;
+    height: 40px;
+    border-bottom: 3px solid #333;
+    background-color: #fff;
+    padding: 5px;
+    >div {
+      display: inline-block;
+    }
+    .year-c{
+      width: 181px;
+    }
+  }
+  .left {
+    width: 200px;
     padding: 5px;
     border-right:3px solid #333;
+    margin-top:-3px;
+    position: relative;
+    left:-188px;
     background-color: #fff;
     .resources p{
       background-color: @resource1Hover;
@@ -92,24 +111,23 @@ body {
   width: 120px;
   background-color: #f1f1f1;
 }
-
+#board-scroll{
+  position: fixed;
+  top:53px;
+  left: 6px;
+  overflow: scroll;
+  width: 1000px; // update by js on resize
+  height: 700px; // updated by js on resize
+}
 /* main container */
 #main-container{
   position: relative;
   min-height: 1200px;
-}
-
-#cells-positioner{
-  height: 800px;
-  width: 1200px;
-
-  position: absolute;
-  left: 50%;
-  margin-left: -600px;
+  min-width: 1200px;
 }
 
 #cells-container{
-  height: 800px;
+  height: 1200px;
   width: 1200px;
 
   display: table-cell;

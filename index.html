@@ -4,7 +4,7 @@
   <link rel="stylesheet" type="text/css" href="./css/css.css" />
   <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css" />
 
-	<script type="text/javascript" src="./js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="./js/libs/jquery-2.0.3.min.js"></script>
 
   <script type="text/javascript" src="./js/customLog.js"></script>
   <script type="text/javascript" src="./js/helpers.js"></script>
@@ -17,11 +17,14 @@
 </head>
 <body>
   <menu id="main-menu">
-    <div class="info">
+    <div class="top">
       <div class="year-c">Year <span class="year">-</span></div>
-      <a id="next-turn" class="board-action" href="#nextTurn">Next Year</a>
+      <div class="event-c"><p>---</p></div>
+      <div class="next-turn-c">
+        <a id="next-turn" class="board-action" href="#nextTurn">Next Year</a>
+      </div>
     </div>
-    <div class="details">
+    <div class="details left">
       <div class="resources">
         <p class="res1"><span><i class="fa fa-crosshairs"></i></span><span class="nbr">-</span></p>
         <p class="res2"><span><i class="fa fa-shield"></i></span><span class="nbr">-</span></p>
@@ -38,16 +41,16 @@
       </div>
     </div>
   </menu>
+  <div id="board-scroll">
   <div id="main-container">
     <!-- starts cells container -->
-    <div id="cells-positioner">
     	<div id="cells-container">
         <div class="inner">
         </div>
     	</div>
-    </div>
-  </div>
   <!-- end cells container -->
+  </div>
+  </div>
 
   <div id="objects-lib" class="hidden">
     <!-- base hex obj -->
