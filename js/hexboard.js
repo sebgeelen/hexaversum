@@ -18,7 +18,7 @@
       hexHtml           = "#objects-lib .hex-c",
       _hexMatrix        = {},
       _oignionLayerNbr  = 1,
-      boardContainer,_menu;
+      boardContainer,_menu, _curentlySelectedHex;
 
   if (_board) { // singleton
     return;
@@ -236,22 +236,37 @@
   }
 
   function eventsInbox(e) {
-    console.log(e);
+    //console.log(e);
+    var hex = $(this).data("self");
     //improve Handling of custom event sub-type, data, etc
     switch(e.type){
       case "hexEvent" :
-      _fillInMenuWith(e.data); // expect hex obj
+      _selectHex(hex);
+      _fillInMenuWithHex(hex); // expect hex obj
       break;
     }
+  }
+
+  function _selectHex(hex) {
+    if(_curentlySelectedHex !== undefined) {
+      _curentlySelectedHex.unselect();
+    }
+    _curentlySelectedHex = hex.select();
   }
 
   // clear the menu and refill it with hex data
   function _fillInMenuWithHex(hex) {
 
-  }
-  // rest the state of the menu (only concerned hex data)
-  function _clearMenuHexData() {
+    var resourcesObj = _menu.find(".resources>p");
 
+    console.log(resourcesObj);
+
+    resourcesObj.each(function(){
+      var obj       = $(this),
+          objClass  = $(this).attr("class").replace("res-", "");
+
+      obj.find("span.nbr").text(hex.getResource(objClass));
+    });
   }
 
   /* getters / setters*/

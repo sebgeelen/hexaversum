@@ -16,6 +16,14 @@ var Hex = function (options) {
         5: undefined,
         6: undefined,
       },
+      resources = {
+        "a": null, // attaque
+        "d": null, // defence
+        "f": null, // food
+        "p": null, // politics
+        "s": null, // science / tech
+        "m": null  // money
+      },
       _board,_this, _self;
 
   if (_this === undefined) {
@@ -47,6 +55,7 @@ var Hex = function (options) {
       forceType = "owned";
     }
     _chooseRamdomOwner(forceType);
+    _chooseRamdomResources();
 
     _initEventListener();
 
@@ -85,6 +94,19 @@ var Hex = function (options) {
     planetOwner = type;
     _this.addClass("owner-" + type);
 
+  }
+
+  // choose a random owner between you (very rare), free, wild, and own by united empire
+  function _chooseRamdomResources () {
+
+    resources = {
+      "a": Math.floor((Math.random() * 10)),
+      "d": Math.floor((Math.random() * 10)),
+      "f": Math.floor((Math.random() * 10)),
+      "p": Math.floor((Math.random() * 10)),
+      "s": Math.floor((Math.random() * 10)),
+      "m": Math.floor((Math.random() * 10))
+    };
   }
 
   //randomlyenable some links
@@ -194,6 +216,16 @@ var Hex = function (options) {
     return _this;
   }
 
+  function select(){
+    _this.addClass('select');
+    return _self;
+  }
+
+  function unselect(){
+    _this.removeClass('select');
+    return _self;
+  }
+
   // geters
   function getStatus() {
     return status;
@@ -204,6 +236,15 @@ var Hex = function (options) {
   function getLinkAt(id) {
     return links[id];
   }
+  function getOwner() {
+    return planetOwner;
+  }
+  function getSize() {
+    return planetSize;
+  }
+  function getResource(type){
+    return resources[type];
+  }
 
   // define the public methods and prop
   var hex         = {};
@@ -212,7 +253,13 @@ var Hex = function (options) {
   hex.getStatus   = getStatus;
   hex.show        = show;
   hex.getLinkAt   = getLinkAt;
+  hex.getOwner    = getOwner;
+  hex.getSize     = getSize;
+  hex.getResource = getResource;
+  hex.select      = select;
+  hex.unselect    = unselect;
 
   _self = hex;
+  _this.data("self", _self);
   return hex;
 };
