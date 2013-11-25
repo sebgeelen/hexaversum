@@ -1,7 +1,7 @@
-body{background:#ddd;font-family:helvetica,sans-serif;overflow:hidden;width:100%;height:100%;}
+body{background:#ddd;font-family:helvetica,sans-serif;overflow:hidden;width:100%;height:100%;margin:0;}
 p{margin:0;}
 .hidden{display:none;}
-#main-menu{position:fixed;top:0;left:0;margin:0;padding:0;width:100%;}#main-menu .top{position:relative;height:40px;border-bottom:3px solid #333;background-color:#fff;padding:5px 0;overflow:hidden;}#main-menu .top .year-c{width:90px;float:left;}
+#main-menu{margin:0;padding:0;width:100%;}#main-menu .top{position:relative;height:40px;border-bottom:3px solid #333;background-color:#fff;padding:5px 0;overflow:hidden;}#main-menu .top .year-c{width:90px;float:left;}
 #main-menu .top .next-turn-c{width:150px;float:right;}
 #main-menu .top .event-c{position:relative;top:0;margin:0 160px 0 100px;}
 #main-menu .left{width:90px;padding:5px;border-right:3px solid #333;margin-top:-3px;background-color:#fff;}#main-menu .left .resources p{background-color:#ca4242;border-left:4px solid #b80000;border-right:4px solid #b80000;width:80px;height:32px;color:#fff;font-size:22px;line-height:32px;margin:0;display:inline-block;}#main-menu .left .resources p span{display:inline-block;width:40px;padding:0;margin:0;text-align:center;}
@@ -11,7 +11,7 @@ p{margin:0;}
 #main-menu .left .resources p:nth-child(5){background-color:#8c4cca;border-color:#640eb8;}
 #main-menu .left .resources p:nth-child(6){background-color:#427caf;border-color:#004e93;}
 #main-menu .buttons button{display:none;}#main-menu .buttons button.visible{display:block;}
-#board-scroll{position:fixed;top:53px;left:6px;overflow:scroll;width:1000px;height:700px;}
+#board-scroll{position:fixed;top:53px;left:103px;overflow:scroll;width:1000px;height:700px;}
 #main-container{position:relative;min-height:1200px;min-width:1200px;}
 #cells-container{height:1200px;width:1200px;display:table-cell;vertical-align:middle;text-align:center;}#cells-container .inner{display:inline-block;}
 .row{text-align:center;margin:0 0 -32px;}.row:last-child{margin:0;}

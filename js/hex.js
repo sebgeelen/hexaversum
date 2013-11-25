@@ -273,6 +273,7 @@ var Hex = function (options) {
   hex.show        = show;
   hex.getLinkAt   = getLinkAt;
   hex.getOwner    = getOwner;
+  hex.setOwner    = setOwner;
   hex.getSize     = getSize;
   hex.getResource = getResource;
   hex.select      = select;

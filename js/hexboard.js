@@ -236,10 +236,10 @@
   function _registerBoardEvents() {
     _menu.find(".buttons button").on("click", function(e){
       e.preventDefault();
-      console.log($(this));
       var currentButton = $(this),
-          action        = currentButton.attr("action");
+          action        = currentButton.val();
 
+        console.log(board, action ,board[action], typeof board[action]);
       if(action !== "" && typeof board[action] === "function"){
         board[action]();
       }
@@ -320,6 +320,7 @@
   var board                     = {};
       board.init                = init;
       board.getOignionLayerNbr  = getOignionLayerNbr;
+      board.invadeCurrentPlanet = invadeCurrentPlanet;
 
   _board                  = board;
   context[namespace]      = _board;
