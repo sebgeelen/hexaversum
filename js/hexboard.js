@@ -34,6 +34,7 @@
 
     _initVars();
     _initMenu();
+    _registerBoardEvents();
     _buildStartingBoard();
     _showAllHexs();
   }
@@ -231,6 +232,21 @@
     return all;
   }
 
+  // auto function call on button click of action == function
+  function _registerBoardEvents() {
+    _menu.find(".buttons button").on("click", function(e){
+      e.preventDefault();
+      console.log($(this));
+      var currentButton = $(this),
+          action        = currentButton.attr("action");
+
+      if(action !== "" && typeof board[action] === "function"){
+        board[action]();
+      }
+    });
+  }
+
+  // listen for hexs events
   function _registerEventsOn(hex) {
     hex.getJq().on("hexEvent", eventsInbox);
   }
@@ -247,6 +263,7 @@
     }
   }
 
+  // change the current hex
   function _selectHex(hex) {
     if(_curentlySelectedHex !== undefined) {
       _curentlySelectedHex.unselect();
@@ -254,12 +271,19 @@
     _curentlySelectedHex = hex.select();
   }
 
+  //change the current hex to owned if the condition are ok
+  function invadeCurrentPlanet(){
+    _curentlySelectedHex.setOwner();
+  }
+
   // clear the menu and refill it with hex data
   function _fillInMenuWithHex(hex) {
 
-    var resourcesObj = _menu.find(".resources>p");
-
-    console.log(resourcesObj);
+    var resourcesObj      = _menu.find(".resources>p"),
+        ownerPlaceholder  = _menu.find(".owner p>span"),
+        sizePlaceholder   = _menu.find(".size p>span"),
+        buttonCont        = _menu.find(".buttons"),
+        invadeButton       = buttonCont.find(".invade");
 
     resourcesObj.each(function(){
       var obj       = $(this),
@@ -267,6 +291,18 @@
 
       obj.find("span.nbr").text(hex.getResource(objClass));
     });
+
+    var ownerTmp = hex.getOwner();
+    ownerPlaceholder.text(ownerTmp);
+    sizePlaceholder.text(hex.getSize());
+
+    if( ownerTmp !== "owned") {
+      // disaplay invade button
+      invadeButton.addClass("visible");
+    } else {
+      invadeButton.removeClass("visible");
+    }
+
   }
 
   /* getters / setters*/

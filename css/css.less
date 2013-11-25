@@ -115,12 +115,16 @@ p{
       }
     }
   }
+  .buttons{
+    button{
+      display: none;
+      &.visible{
+        display: block;
+      }
+    }
+  }
 }
-/* log area */
-#log{
-  width: 120px;
-  background-color: #f1f1f1;
-}
+
 #board-scroll{
   position: fixed;
   top:53px;
@@ -162,7 +166,7 @@ p{
   position: relative;
   margin: -2px 2px;
   display: inline-block;
-
+  pointer-events: none;
   //transform:scaleY(.82);
 
   width: 80px; // this is hex size
@@ -221,6 +225,7 @@ p{
   &:hover{
     opacity: .3;
   }
+  pointer-events: auto;
 }
 
 .umap{

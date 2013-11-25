@@ -10,18 +10,18 @@ p{margin:0;}
 #main-menu .left .resources p:nth-child(4){background-color:#42c9ca;border-color:#00b6b8;}
 #main-menu .left .resources p:nth-child(5){background-color:#8c4cca;border-color:#640eb8;}
 #main-menu .left .resources p:nth-child(6){background-color:#427caf;border-color:#004e93;}
-#log{width:120px;background-color:#f1f1f1;}
+#main-menu .buttons button{display:none;}#main-menu .buttons button.visible{display:block;}
 #board-scroll{position:fixed;top:53px;left:6px;overflow:scroll;width:1000px;height:700px;}
 #main-container{position:relative;min-height:1200px;min-width:1200px;}
 #cells-container{height:1200px;width:1200px;display:table-cell;vertical-align:middle;text-align:center;}#cells-container .inner{display:inline-block;}
 .row{text-align:center;margin:0 0 -32px;}.row:last-child{margin:0;}
-.hex-c{margin:auto;position:relative;margin:-2px 2px;display:inline-block;width:80px;opacity:0;}.hex-c.visible-1{opacity:1;-webkit-transition:opacity .4s;transition:opacity .4s;}
+.hex-c{margin:auto;position:relative;margin:-2px 2px;display:inline-block;pointer-events:none;width:80px;opacity:0;}.hex-c.visible-1{opacity:1;-webkit-transition:opacity .4s;transition:opacity .4s;}
 .hex-c.visible-2{opacity:1;-webkit-transition:opacity .6s;transition:opacity .6s;}
 .hex-c.visible-3{opacity:1;-webkit-transition:opacity .8s;transition:opacity .8s;}
 .hex-c.select .in2{opacity:0.6;}
 .hex{transform:scaleY(0.82);height:96px;position:relative;width:100%;overflow:hidden;cursor:pointer;text-align:center;line-height:96px;}
 .in1{overflow:hidden;width:100%;height:100%;transform:rotate(-60deg);}
-.in2{width:100%;height:100%;visibility:visible;transform:rotate(-60deg);background-color:#7b7b66;position:relative;opacity:.2;cursor:pointer;}.in2:hover{opacity:.3;}
+.in2{width:100%;height:100%;visibility:visible;transform:rotate(-60deg);background-color:#7b7b66;position:relative;opacity:.2;cursor:pointer;pointer-events:auto;}.in2:hover{opacity:.3;}
 .umap{position:absolute;top:25%;left:25%;width:50%;height:25%;padding-top:25%;text-align:center;line-height:50%;}.umap .planet{margin:0 auto;border:2px solid #fff;border-radius:20px;background-color:#333333;}
 .umap .planet-1{width:8px;height:8px;margin-top:-4px;}
 .umap .planet-2{width:10px;height:10px;margin-top:-5px;}

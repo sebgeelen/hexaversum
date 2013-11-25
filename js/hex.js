@@ -8,6 +8,7 @@ var Hex = function (options) {
       status = "lock",
       planetSize,
       planetOwner,
+      possibleOwners = ["free","owned","ue","wild"],
       links = {
         1: undefined,
         2: undefined,
@@ -24,7 +25,7 @@ var Hex = function (options) {
         "s": null, // science / tech
         "m": null  // money
       },
-      _board,_this, _self;
+      _board,_this,_self;
 
   if (_this === undefined) {
     cl.log('new hex instance');
@@ -91,8 +92,7 @@ var Hex = function (options) {
       }
     }
 
-    planetOwner = type;
-    _this.addClass("owner-" + type);
+    setOwner(type);
 
   }
 
@@ -244,6 +244,25 @@ var Hex = function (options) {
   }
   function getResource(type){
     return resources[type];
+  }
+  //seters
+
+  function setOwner(type) {
+    if(type === undefined || type === "") {
+      type = "owned";
+    }
+
+    planetOwner = type;
+    for(var t in possibleOwners) {
+      var ot = possibleOwners[t],
+          ct = "owner-" + ot;
+      if(ot === type) {
+        _this.addClass(ct);
+      } else {
+        _this.removeClass(ct);
+      }
+    }
+    return _self;
   }
 
   // define the public methods and prop
