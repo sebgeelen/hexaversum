@@ -1,5 +1,6 @@
 body{background:#ddd;font-family:helvetica,sans-serif;overflow:hidden;width:100%;height:100%;margin:0;}
 p{margin:0;}
+button{cursor:pointer;}
 .hidden{display:none;}
 #main-menu{margin:0;padding:0;width:100%;}#main-menu .top{position:relative;height:40px;border-bottom:3px solid #333;background-color:#fff;padding:5px 0;overflow:hidden;}#main-menu .top .year-c{width:90px;float:left;}
 #main-menu .top .next-turn-c{width:150px;float:right;}
@@ -42,6 +43,14 @@ p{margin:0;}
 .umap .link-4{top:88%;left:34%;}
 .umap .link-5{top:50%;left:54%;}
 .umap .link-6{top:17%;left:30%;}
+#modal-shadow{position:fixed;z-index:499;background-color:#000;opacity:.4;width:100%;height:100%;top:0;left:0;}#modal-shadow:not(.open){display:none;}
+.modal{position:fixed;z-index:500;background-color:#f9f9f9;border:3px solid #333;padding:20px;top:10%;left:50%;width:400px;margin-left:-200px;}.modal:not(.open){display:none;}
 .owner-owned .in2{background-position:center;background-image:url("../img/owned.svg");}
 .owner-wild .umap .planet{background-color:#8b6c21;}
 .owner-ue .umap .planet{background-color:#2a5096;}
+.strong-a .in2{background-color:#b80000;}
+.strong-d .in2{background-color:#278e00;}
+.strong-m .in2{background-color:#b85b00;}
+.strong-s .in2{background-color:#00b6b8;}
+.strong-p .in2{background-color:#640eb8;}
+.strong-f .in2{background-color:#004e93;}

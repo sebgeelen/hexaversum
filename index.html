@@ -41,11 +41,12 @@
       <div class="owner">
         <p>Owner : <span> - </span></p>
       </div>
-      <div class="misc" >
-        <p>--<p>
+      <div class="misc">
+        <p>--</p>
       </div>
-      <div class="buttons" >
+      <div class="buttons function-button-container" >
         <button name="invade" class="invade" type="button" value="invadeCurrentPlanet">Invade</button>
+        <button name="ChooseStrongResource" class="choose-strong-resource" type="button" value="openResourceChoise">Choose Color</button>
       </div>
     </div>
   </menu>
@@ -88,5 +89,21 @@
     <div class="row"></div>
     <!-- end of objects library -->
   </div>
+
+  <!-- modals -->
+  <div class="modal" id="choose-strong-resource-modal">
+    <div class="modal-inner">
+      <p>Choose the strong resource for this planet</p>
+      <div class="function-button-container">
+        <button name="res-a" class="a-choise" type="button" value="chooseStrongResource:a">Ataque</button>
+        <button name="res-d" class="d-choise" type="button" value="chooseStrongResource:d">Defence</button>
+        <button name="res-m" class="m-choise" type="button" value="chooseStrongResource:m">Money</button>
+        <button name="res-s" class="s-choise" type="button" value="chooseStrongResource:s">Science</button>
+        <button name="res-p" class="p-choise" type="button" value="chooseStrongResource:p">Politic</button>
+        <button name="res-f" class="f-choise" type="button" value="chooseStrongResource:f">Food</button>
+      </div>
+    </div>
+  </div>
+  <div id="modal-shadow"></div>
 </body>
 </html>

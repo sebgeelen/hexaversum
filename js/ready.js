@@ -15,7 +15,7 @@ $(function() {
 
   $(window).on("resize", function(e) {
     var html    = $("html"),
-        hWidth  = html.width() - 9,
+        hWidth  = html.width() - 103,
         hHeight = html.height() - 72,
         scrollC = $("#board-scroll");
 
@@ -28,4 +28,5 @@ $(function() {
     scrollC.scrollLeft( ( 1200 - hWidth )  / 2);
 
   }).trigger("resize");
+
 });

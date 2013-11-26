@@ -234,16 +234,19 @@
 
   // auto function call on button click of action == function
   function _registerBoardEvents() {
-    _menu.find(".buttons button").on("click", function(e){
+    $(".function-button-container button").on("click", function(e){
       e.preventDefault();
       var currentButton = $(this),
-          action        = currentButton.val();
+          values        = currentButton.val().split(":"),
+          action        = values.shift(),
+          param         = values.length > 0 ? values.shift() : undefined;
 
-        console.log(board, action ,board[action], typeof board[action]);
       if(action !== "" && typeof board[action] === "function"){
-        board[action]();
+        board[action](param);
+        _fillInMenuWithHex(_curentlySelectedHex); // refresh data shown
       }
     });
+    $("#modal-shadow").on("click", closeModal);
   }
 
   // listen for hexs events
@@ -276,6 +279,19 @@
     _curentlySelectedHex.setOwner();
   }
 
+  function openResourceChoise(){
+    $("#choose-strong-resource-modal, #modal-shadow").addClass("open");
+  }
+
+  function closeModal(){
+    $(".modal.open, #modal-shadow").removeClass("open");
+  }
+
+  function chooseStrongResource(choise) {
+    closeModal();
+    _curentlySelectedHex.setStrongResource(choise);
+  }
+
   // clear the menu and refill it with hex data
   function _fillInMenuWithHex(hex) {
 
@@ -283,7 +299,8 @@
         ownerPlaceholder  = _menu.find(".owner p>span"),
         sizePlaceholder   = _menu.find(".size p>span"),
         buttonCont        = _menu.find(".buttons"),
-        invadeButton       = buttonCont.find(".invade");
+        invadeButton      = buttonCont.find(".invade"),
+        chooseSResButton  = buttonCont.find(".choose-strong-resource");
 
     resourcesObj.each(function(){
       var obj       = $(this),
@@ -297,10 +314,15 @@
     sizePlaceholder.text(hex.getSize());
 
     if( ownerTmp !== "owned") {
-      // disaplay invade button
       invadeButton.addClass("visible");
     } else {
       invadeButton.removeClass("visible");
+    }
+
+    if( ownerTmp === "owned" && !hex.getStrongResource()) {
+      chooseSResButton.addClass("visible");
+    } else {
+      chooseSResButton.removeClass("visible");
     }
 
   }
@@ -317,10 +339,12 @@
 
 
   // define the public methods and vars
-  var board                     = {};
-      board.init                = init;
-      board.getOignionLayerNbr  = getOignionLayerNbr;
-      board.invadeCurrentPlanet = invadeCurrentPlanet;
+  var board                       = {};
+      board.init                  = init;
+      board.getOignionLayerNbr    = getOignionLayerNbr;
+      board.invadeCurrentPlanet   = invadeCurrentPlanet;
+      board.openResourceChoise    = openResourceChoise;
+      board.chooseStrongResource  = chooseStrongResource;
 
   _board                  = board;
   context[namespace]      = _board;

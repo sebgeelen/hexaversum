@@ -8,6 +8,7 @@ var Hex = function (options) {
       status = "lock",
       planetSize,
       planetOwner,
+      strongResource = false,
       possibleOwners = ["free","owned","ue","wild"],
       links = {
         1: undefined,
@@ -245,6 +246,9 @@ var Hex = function (options) {
   function getResource(type){
     return resources[type];
   }
+  function getStrongResource(){
+    return strongResource;
+  }
   //seters
 
   function setOwner(type) {
@@ -265,19 +269,39 @@ var Hex = function (options) {
     return _self;
   }
 
+  function setStrongResource(type){
+    if(type === undefined || type === "") {
+      type = "a";
+    }
+
+    strongResource = type;
+    for(var r in resources) {
+      var ct = "strong-" + r;
+      if(r === type) {
+        _this.addClass(ct);
+      } else {
+        _this.removeClass(ct);
+      }
+    }
+
+    return _self;
+  }
+
   // define the public methods and prop
-  var hex         = {};
-  hex.getJq       = getJq;
-  hex.getType     = getType;
-  hex.getStatus   = getStatus;
-  hex.show        = show;
-  hex.getLinkAt   = getLinkAt;
-  hex.getOwner    = getOwner;
-  hex.setOwner    = setOwner;
-  hex.getSize     = getSize;
-  hex.getResource = getResource;
-  hex.select      = select;
-  hex.unselect    = unselect;
+  var hex               = {};
+  hex.getJq             = getJq;
+  hex.getType           = getType;
+  hex.getStatus         = getStatus;
+  hex.show              = show;
+  hex.getLinkAt         = getLinkAt;
+  hex.getOwner          = getOwner;
+  hex.setOwner          = setOwner;
+  hex.getSize           = getSize;
+  hex.getResource       = getResource;
+  hex.getStrongResource = getStrongResource;
+  hex.setStrongResource = setStrongResource;
+  hex.select            = select;
+  hex.unselect          = unselect;
 
   _self = hex;
   _this.data("self", _self);

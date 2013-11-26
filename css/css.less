@@ -37,6 +37,9 @@ body {
 p{
   margin: 0;
 }
+button{
+  cursor: pointer;
+}
 
 .hidden{
   display: none;
@@ -338,9 +341,39 @@ p{
   }
 
 }
+// modal
+#modal-shadow{
+  position: fixed;
+  z-index: 499;
+  background-color: #000;
+  opacity: .4;
+  width: 100%;
+  height: 100%;
+  top:0;
+  left: 0;
+  &:not(.open){
+    display: none;
+  }
+}
 
-// owner diff specific css // always at the end
+.modal{
+  position: fixed;
+  z-index: 500;
+  background-color: #f9f9f9;
+  border: 3px solid #333;
+  padding: 20px;
+  top: 10%;
+  left: 50%;
+  width: 400px;
+  margin-left: -200px;
+  &:not(.open){
+    display: none;
+  }
+}
 
+
+// specific css : always at the end
+//owner
 .owner-owned{
   .in2{
     background-position: center;
@@ -359,4 +392,23 @@ p{
   .umap .planet{
     background-color: @uePlanetColor;
   }
+}
+//resource
+.strong-a .in2{
+    background-color: @resource1;
+}
+.strong-d .in2{
+    background-color: @resource2;
+}
+.strong-m .in2{
+    background-color: @resource3;
+}
+.strong-s .in2{
+    background-color: @resource4;
+}
+.strong-p .in2{
+    background-color: @resource5;
+}
+.strong-f .in2{
+    background-color: @resource6;
 }
