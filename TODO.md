@@ -1,4 +1,9 @@
 == TODO ==
 
-* event on invade doesn't trigger
 * custom event namespace
+
+* each action trigger next turn
+
+on next turn : every resurces grown => res += (res / 10) * (random * planetSize / 2 ) + planetSize / 2 + 1
+
+if the planet reach planetSize * 10 < food + money / ,,,
