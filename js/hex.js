@@ -99,15 +99,46 @@ var Hex = function (options) {
 
   // choose a random owner between you (very rare), free, wild, and own by united empire
   function _chooseRamdomResources () {
+    var resMin  = 3,
+        randMax = 2;
 
-    resources = {
-      "a": Math.floor((Math.random() * 10)),
-      "d": Math.floor((Math.random() * 10)),
-      "f": Math.floor((Math.random() * 10)),
-      "p": Math.floor((Math.random() * 10)),
-      "s": Math.floor((Math.random() * 10)),
-      "m": Math.floor((Math.random() * 10))
-    };
+    for(var i in resources) {
+      var rb = (Math.random() * randMax) + resMin,
+          rf = rb * (getSize() * 0.75);
+
+          switch (getOwner()) {
+            case "ue" :  // united empire strongess
+              if(i === "f") {
+                rf *= 1.1;
+              } else if (i === "a") {
+                rf *= 1.2;
+              } else if(i === "d") {
+                rf *= 2.2;
+              } else if(i === "p") {
+                rf *= 1.2;
+              } else if(i === "m") {
+                rf *= 4;
+              }
+            break;
+
+            case "wild": // wild owner strongness
+              if(i === "f") {
+                rf *= 1.5;
+              } else if (i === "a") {
+                rf *= 2;
+              } else if(i === "s") {
+                rf *= 0.4;
+              } else if(i === "p") {
+                rf *= 0.6;
+              } else if(i === "m") {
+                rf *= (Math.random() + 0.5);
+              }
+            break;
+          }
+
+
+      resources[i] = Math.floor(rf);
+    }
   }
 
   //randomlyenable some links
@@ -278,6 +309,7 @@ var Hex = function (options) {
     for(var r in resources) {
       var ct = "strong-" + r;
       if(r === type) {
+        resources[r] *= 2;
         _this.addClass(ct);
       } else {
         _this.removeClass(ct);
