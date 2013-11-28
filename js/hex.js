@@ -86,7 +86,7 @@ var Hex = function (options) {
         type = "owned";
       } else if (rand < 200) {
         type = "wild";
-      } else if (rand < (200 + ( 50 * _board.getOignionLayerNbr(-1) ) )) {
+      } else if (rand < (200 + ( 50 * _board.getOignonLayerNbr(-1) ) )) {
         type = "ue";
       } else {
         type = "free";
@@ -137,7 +137,7 @@ var Hex = function (options) {
           }
 
 
-      resources[i] = Math.floor(rf);
+      resources[i] = rf;
     }
   }
 
@@ -194,6 +194,16 @@ var Hex = function (options) {
     }
 
     _showActiveLinks();
+  }
+
+  // calcul next turn resource growth and etc
+  function nextTurn() {
+
+    for(var i in resources) {
+      var cr = resources[i];
+
+      resources[i] += cr * ( ( 1 / getSize() ) - 0.08);
+    }
   }
 
   // create Event Listener
@@ -275,13 +285,16 @@ var Hex = function (options) {
     return planetSize;
   }
   function getResource(type){
-    return resources[type];
+    return Math.floor(resources[type]);
   }
   function getStrongResource(){
     return strongResource;
   }
-  //seters
+  function getTechVal() {
+    return resources["s"] + (resources["p"] / 4);
+  }
 
+  //seters
   function setOwner(type) {
     if(type === undefined || type === "") {
       type = "owned";
@@ -330,10 +343,12 @@ var Hex = function (options) {
   hex.setOwner          = setOwner;
   hex.getSize           = getSize;
   hex.getResource       = getResource;
+  hex.getTechVal        = getTechVal;
   hex.getStrongResource = getStrongResource;
   hex.setStrongResource = setStrongResource;
   hex.select            = select;
   hex.unselect          = unselect;
+  hex.nextTurn          = nextTurn;
 
   _self = hex;
   _this.data("self", _self);

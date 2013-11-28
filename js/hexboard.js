@@ -2,6 +2,7 @@
 
   var _board            = context[namespace],       // context object (defaul on window.Hexboard)
       _hexsList         = [],                       // hex lists
+      _turn             = 0,
       settings          = {
         "container"         : null,               // the board container html obj (expect jQuery instance) -- MANDATORY
         "startingLayer"     : 1                   // number layer around center hex
@@ -17,7 +18,7 @@
       rowHtml           = "#objects-lib .row",
       hexHtml           = "#objects-lib .hex-c",
       _hexMatrix        = {},
-      _oignionLayerNbr  = 1,
+      _oignonLayerNbr  = 1,
       boardContainer,_menu, _curentlySelectedHex;
 
   if (_board) { // singleton
@@ -92,10 +93,10 @@
 
   // add a layout around current hex board
   function addHexsAroundBoard () {
-    _oignionLayerNbr ++;
+    _oignonLayerNbr ++;
 
     var allRows       = boardContainer.find(".row"),
-        rowIdA        = ( _oignionLayerNbr - 1 ),
+        rowIdA        = ( _oignonLayerNbr - 1 ),
         rowIdB        = rowIdA * -1,
         newRowA       = _createRow(rowIdA),
         newRowB       = _createRow(rowIdB);
@@ -112,11 +113,11 @@
     });
 
     //row before first line
-    addXHexInRow(_oignionLayerNbr, newRowB, rowIdB);
+    addXHexInRow(_oignonLayerNbr, newRowB, rowIdB);
     boardContainer.prepend(newRowB);
 
     //row after last line
-    addXHexInRow(_oignionLayerNbr, newRowA, rowIdA);
+    addXHexInRow(_oignonLayerNbr, newRowA, rowIdA);
     boardContainer.append(newRowA);
   }
 
@@ -243,6 +244,8 @@
 
       if(action !== "" && typeof board[action] === "function"){
         board[action](param);
+        // fire next turn
+        _nextTurn();
         _fillInMenuWithHex(_curentlySelectedHex); // refresh data shown
       }
     });
@@ -327,24 +330,56 @@
 
   }
 
+  function isTechOverOignon() {
+    // if every owned planet science + (politics / 4) > 11^oignonsLevel
+    console.log(getCurentTechValue() + " > " + Math.pow(11, getOignonLayerNbr()));
+    return getCurentTechValue() > Math.pow(11, getOignonLayerNbr());
+  }
+
+  function _nextTurn() {
+    console.log("----------------------------- end turn "+ _turn+" ; begin next turn");
+    _turn ++;
+    var allHexs = getAllHexs();
+
+    for(var i in allHexs) {
+      h = allHexs[i];
+      h.nextTurn();
+    }
+  }
+
   /* getters / setters*/
-  function getOignionLayerNbr(offset) {
+  function getOignonLayerNbr(offset) {
 
     if(offset === undefined) {
       offset = 0;
     }
 
-    return _oignionLayerNbr + offset;
+    return _oignonLayerNbr + offset;
+  }
+
+  function getCurentTechValue() {
+    var allHexs = getAllHexs(),
+        currentTechVal = 0;
+
+    for(var i in allHexs) {
+      h = allHexs[i];
+      if(h.getOwner() === "owned") {
+        currentTechVal += h.getTechVal();
+      }
+    }
+
+    return currentTechVal;
   }
 
 
   // define the public methods and vars
   var board                       = {};
       board.init                  = init;
-      board.getOignionLayerNbr    = getOignionLayerNbr;
+      board.getOignonLayerNbr    = getOignonLayerNbr;
       board.invadeCurrentPlanet   = invadeCurrentPlanet;
       board.openResourceChoise    = openResourceChoise;
       board.chooseStrongResource  = chooseStrongResource;
+      board.isTechOverOignon      = isTechOverOignon;
 
   _board                  = board;
   context[namespace]      = _board;
