@@ -244,8 +244,12 @@
 
       if(action !== "" && typeof board[action] === "function"){
         board[action](param);
-        // fire next turn
-        _nextTurn();
+
+        // fire next turn if buton is action
+        if(currentButton.hasClass("next-turn")) {
+          _nextTurn();
+        }
+
         _fillInMenuWithHex(_curentlySelectedHex); // refresh data shown
       }
     });
@@ -332,8 +336,8 @@
 
   function isTechOverOignon() {
     // if every owned planet science + (politics / 4) > 11^oignonsLevel
-    console.log(getCurentTechValue() + " > " + Math.pow(11, getOignonLayerNbr()));
-    return getCurentTechValue() > Math.pow(11, getOignonLayerNbr());
+    console.log(getCurentTechValue() + " > " + Math.pow(9, getOignonLayerNbr()));
+    return getCurentTechValue() > Math.pow(9, getOignonLayerNbr());
   }
 
   function _nextTurn() {
@@ -344,6 +348,11 @@
     for(var i in allHexs) {
       h = allHexs[i];
       h.nextTurn();
+    }
+    if(isTechOverOignon()) {
+      console.log("add hexs around board *****************");
+      addHexsAroundBoard();
+      _showAllHexs();
     }
   }
 

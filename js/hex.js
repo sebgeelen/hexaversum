@@ -6,7 +6,7 @@ var Hex = function (options) {
       },
       type = "empty",
       status = "lock",
-      planetSize,
+      planetSize = 0,
       planetOwner,
       strongResource = false,
       possibleOwners = ["free","owned","ue","wild"],
@@ -71,9 +71,7 @@ var Hex = function (options) {
         diff  = max - min,
         rand  = min + Math.floor((Math.random() * ( 1+ diff ) ));
 
-    planetSize = rand;
-    _this.find(".planet").addClass("planet-" + rand);
-
+    setSize(rand);
   }
 
   // choose a random owner between you (very rare), free, wild, and own by united empire
@@ -200,9 +198,30 @@ var Hex = function (options) {
   function nextTurn() {
 
     for(var i in resources) {
-      var cr = resources[i];
+      resources[i] += ( Math.random() + 0.1 ) + getSize() / ( (Math.random() * 2 ) + 1.2 ) ;
+      if(i === strongResource) {
+        resources[i] += (Math.random() + 0.3) * getSize();
+      }
+    }
+    shouldPlanetGrow();
+  }
 
-      resources[i] += cr * ( ( 1 / getSize() ) - 0.08);
+  function shouldPlanetGrow() {
+    //planetSize * 10 < (food * science / 3) + (money / 3) + ( politics / 4 )
+    var sizometer = 0;
+
+    sizometer += resources["f"] * (resources["s"] / 3);
+    sizometer += resources["m"] / 3;
+    sizometer += resources["p"] / 5;
+
+    if (Math.pow("11", getSize()) < sizometer) {
+      console.log("level ["+getSize()+"] Grow - ", _this);
+      setSize(getSize()+1);
+      resources["f"] *= 0.2;
+      resources["m"] *= 0.4;
+      resources["d"] *= 0.9;
+      resources["p"] *= 0.8;
+      resources["a"] *= 1.07;
     }
   }
 
@@ -311,6 +330,12 @@ var Hex = function (options) {
       }
     }
     return _self;
+  }
+
+  function setSize(newSize) {
+    var p = _this.find(".planet").removeClass("planet-" + planetSize);
+    planetSize = newSize;
+    p.addClass("planet-" + planetSize);
   }
 
   function setStrongResource(type){

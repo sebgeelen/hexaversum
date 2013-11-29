@@ -3,7 +3,7 @@ $(function() {
   // init board
   Hexboard.init({
     "container"         : $("#main-container .inner"),
-    "startingLayer"     : 2,
+    "startingLayer"     : 1,
     "startingMenuData"  : {"year" : 7638}
   });
 
