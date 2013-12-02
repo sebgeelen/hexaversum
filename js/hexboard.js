@@ -214,6 +214,32 @@
     }
     return res;
   }
+
+  function _getLinkedHexAroundHex(hex){
+    var hexJq = hex.getJq(),
+        allAround = _getHexAround(hexJq.data("rowId"), hexJq.data("id"));
+
+    for (var i in allAround) {
+
+      if(!hex.getLinkAt(i)){
+        delete(allAround[i]);
+      }
+    }
+
+    return allAround;
+  }
+
+  function _getOwnedAroundHex(hex){
+    var linkedHex = _getLinkedHexAroundHex(hex);
+    for (var i in linkedHex) {
+      if(linkedHex[i].getOwner() !== "owned"){
+        delete(linkedHex[i]);
+      }
+    }
+
+    return linkedHex;
+  }
+
   function getSingleHexAt(rowId, hexId){
 
     if(_hexMatrix[rowId] === undefined || _hexMatrix[rowId][hexId] === undefined){
@@ -283,7 +309,21 @@
 
   //change the current hex to owned if the condition are ok
   function invadeCurrentPlanet(){
-    _curentlySelectedHex.setOwner();
+    var ownedLinked       = _getOwnedAroundHex(_curentlySelectedHex),
+        atLeastOneLink    = false,
+        resourcesOnLinked = {};
+
+
+    for (var i in ownedLinked) {
+      atLeastOneLink = true;
+    }
+
+    if(atLeastOneLink){
+      _curentlySelectedHex.setOwner();
+    } else {
+      console.log("no linked planet to start the invasion");
+    }
+
   }
 
   function openResourceChoise(){
