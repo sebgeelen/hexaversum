@@ -15,6 +15,9 @@
   - low chance of give up from enemy population if specialized in politics and hight in money = loose A LOT of money
     cause you pay the people, but no malus on other res
 
+* chain planet for calcul invasion.
+  - Raise a little bit the defence advantage
+
 * reset specialization when planet grow ???
 
 * game enemy; entropy or IA?

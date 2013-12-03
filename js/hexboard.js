@@ -269,10 +269,10 @@
           param         = values.length > 0 ? values.shift() : undefined;
 
       if(action !== "" && typeof board[action] === "function"){
-        board[action](param);
+        actionWasSuccess = board[action](param);
 
         // fire next turn if buton is action
-        if(currentButton.hasClass("next-turn")) {
+        if(currentButton.hasClass("next-turn") && actionWasSuccess) {
           _nextTurn();
         }
 
@@ -311,17 +311,29 @@
   function invadeCurrentPlanet(){
     var ownedLinked       = _getOwnedAroundHex(_curentlySelectedHex),
         atLeastOneLink    = false,
-        resourcesOnLinked = {};
+        resourcesOnLinked = {},
+        invadeForce       = 0;
 
 
     for (var i in ownedLinked) {
       atLeastOneLink = true;
+      invadeForce += ownedLinked[i].getInvadeForce();
     }
 
     if(atLeastOneLink){
-      _curentlySelectedHex.setOwner();
+      var counterForce  = _curentlySelectedHex.getCounterInvadeForce();
+      console.log("invade Forces: i:" +invadeForce+ " > c:" + counterForce);
+      if (invadeForce > counterForce) {
+        // calcul bonus malus
+        _curentlySelectedHex.setOwner();
+        return true;
+      } else {
+        console.log("not enouph invade power");
+        return false;
+      }
     } else {
       console.log("no linked planet to start the invasion");
+      return false;
     }
 
   }
@@ -337,6 +349,7 @@
   function chooseStrongResource(choise) {
     closeModal();
     _curentlySelectedHex.setStrongResource(choise);
+    return true;
   }
 
   // clear the menu and refill it with hex data

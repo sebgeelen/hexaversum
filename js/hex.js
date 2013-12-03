@@ -357,23 +357,65 @@ var Hex = function (options) {
     return _self;
   }
 
+  function getCounterInvadeForce() {
+    var cForce = 0;
+
+    if(resources["f"] > resources["d"]) {
+      cForce += resources["d"] * 1.6;
+    } else {
+      cForce += resources["d"];
+    }
+
+    cForce += resources["s"];
+
+    if(getStrongResource() === "d") {
+      cForce *= 2;
+    }
+
+    cForce += ( resources["m"] + resources["p"] ) / 10;
+
+    return cForce;
+  }
+
+  function getInvadeForce() {
+    var iForce = 0;
+
+    if(resources["f"] > resources["a"]) {
+      iForce += resources["d"] * 1.7;
+    } else {
+      iForce += resources["d"] * 0.9;
+    }
+
+    iForce += resources["s"];
+
+    if(getStrongResource() === "a") {
+      iForce *= 1.9;
+    }
+
+    iForce += ( resources["m"] + resources["p"] ) / 9;
+
+    return iForce;
+  }
+
   // define the public methods and prop
-  var hex               = {};
-  hex.getJq             = getJq;
-  hex.getType           = getType;
-  hex.getStatus         = getStatus;
-  hex.show              = show;
-  hex.getLinkAt         = getLinkAt;
-  hex.getOwner          = getOwner;
-  hex.setOwner          = setOwner;
-  hex.getSize           = getSize;
-  hex.getResource       = getResource;
-  hex.getTechVal        = getTechVal;
-  hex.getStrongResource = getStrongResource;
-  hex.setStrongResource = setStrongResource;
-  hex.select            = select;
-  hex.unselect          = unselect;
-  hex.nextTurn          = nextTurn;
+  var hex                   = {};
+  hex.getJq                 = getJq;
+  hex.getType               = getType;
+  hex.getStatus             = getStatus;
+  hex.show                  = show;
+  hex.getLinkAt             = getLinkAt;
+  hex.getOwner              = getOwner;
+  hex.setOwner              = setOwner;
+  hex.getSize               = getSize;
+  hex.getResource           = getResource;
+  hex.getTechVal            = getTechVal;
+  hex.getStrongResource     = getStrongResource;
+  hex.setStrongResource     = setStrongResource;
+  hex.getCounterInvadeForce = getCounterInvadeForce;
+  hex.getInvadeForce        = getInvadeForce;
+  hex.select                = select;
+  hex.unselect              = unselect;
+  hex.nextTurn              = nextTurn;
 
   _self = hex;
   _this.data("self", _self);
