@@ -25,6 +25,9 @@
 * multiplayer ??
   - owned diferent planet at begining, over socket, wait for end of other player turn?
 
+* when reveal a new layer of planet, take into account the avg existing plante size.
+
+* free planet = super strong but no grow ?
 
 --------------------------------------------------------------------------------------------
 
