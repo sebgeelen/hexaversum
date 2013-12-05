@@ -16,6 +16,7 @@
         "6": "3"
       },
       randomEvents      = window.randomEventsLibrary,
+      _currentEvent,
       rowHtml           = "#objects-lib .row",
       hexHtml           = "#objects-lib .hex-c",
       _hexMatrix        = {},
@@ -64,6 +65,23 @@
       }
     }
 
+  }
+
+  // choose random events if no random events is selected at this moment
+  function _chooseRandomEvent() {
+    if(_currentEvent === undefined || _currentEvent.length === 0) {
+      var nbrAvailableEvent = 0;
+      for(var i in randomEvents) {
+        nbrAvailableEvent++;
+      }
+
+      var rand = Math.floor((Math.random() * nbrAvailableEvent ));
+
+      _currentEvent = randomEvents[rand];
+
+      _menu.find("menu-c").html($("#objects-lib").find(".random-event-texts>p:nth-child("+_currentEvent.id+")"));
+    }
+    console.log(_currentEvent);
   }
 
   // build the starting hex board ( 1 hex in the center )
