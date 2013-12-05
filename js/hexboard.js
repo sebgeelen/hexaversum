@@ -15,10 +15,11 @@
         "5": "2",
         "6": "3"
       },
+      randomEvents      = window.randomEventsLibrary,
       rowHtml           = "#objects-lib .row",
       hexHtml           = "#objects-lib .hex-c",
       _hexMatrix        = {},
-      _oignonLayerNbr  = 1,
+      _oignonLayerNbr   = 1,
       boardContainer,_menu, _curentlySelectedHex;
 
   if (_board) { // singleton
@@ -35,6 +36,7 @@
 
     _initVars();
     _initMenu();
+    _chooseRandomEvent();
     _registerBoardEvents();
     _buildStartingBoard();
     _showAllHexs();
@@ -61,6 +63,7 @@
         target.html(startingMenuData[i]);
       }
     }
+
   }
 
   // build the starting hex board ( 1 hex in the center )
