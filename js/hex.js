@@ -2,7 +2,7 @@ var Hex = function (options) {
 
   var settings  = {
         "mandatoryLinks" : {},
-        "planetSize" : {"min":1, "max":3}
+        "planetSize" : {"min":0, "max":2}
       },
       type = "empty",
       status = "lock",
@@ -66,11 +66,12 @@ var Hex = function (options) {
 
   // choose a random planet size between min and max provided
   function _chooseRamdomPlanetSize (planetSizeMinMax) {
-    var min   = planetSizeMinMax.min,
-        max   = planetSizeMinMax.max,
+    var oln   = _board.getOignonLayerNbr(),
+        min   = planetSizeMinMax.min + oln,
+        max   = planetSizeMinMax.max + Math.floor(Math.pow( 1.5, oln)),
         diff  = max - min,
         rand  = min + Math.floor((Math.random() * ( 1+ diff ) ));
-
+    console.log(oln, max);
     setSize(rand);
   }
 
@@ -97,8 +98,9 @@ var Hex = function (options) {
 
   // choose a random owner between you (very rare), free, wild, and own by united empire
   function _chooseRamdomResources () {
-    var resMin  = 3,
-        randMax = 2;
+    var oln     = _board.getOignonLayerNbr(),
+        resMin  = 3 + (oln*3),
+        randMax = 2 + Math.pow(2, oln);
 
     for(var i in resources) {
       var rb = (Math.random() * randMax) + resMin,
